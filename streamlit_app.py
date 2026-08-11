@@ -223,7 +223,7 @@ def xeplaitkb_button():
 if __name__ == "__main__":
 
     try:
-        df_excel = pd.read_excel("Tkb_dang_dung/tkb_dang_dung.xlsx")
+        df_excel = pd.read_excel("tkb_dang_dung.xlsx")
 
         #st.session_state.df_excel = df_excel.astype(str).fillna("")
         st.session_state.df = df_excel.fillna("")
@@ -249,22 +249,16 @@ if __name__ == "__main__":
         uploaded_file = st.sidebar.file_uploader("📂 Chọn file Excel (.xlsx)", type=["xlsx"])
         if uploaded_file is not None:
             df_excel = pd.read_excel(uploaded_file)
-            # Thay cac o trong bang ""
-            df_excel = df_excel.fillna("")
-            # Loại bỏ index để không xuất hiện cột id
-            #df_excel = df_excel.reset_index(drop=True)
-
-            st.session_state.df = df_excel.astype(str).fillna("")
-
-            # Hiển thị bảng và các chức năng
-            show_timetable(st.session_state.df_excel)
-
+            st.session_state.df = df_excel.fillna("")
+            
+            show_timetable(st.session_state.df)
+            # tao 2 cot ben trai
             col1, col2 = st.columns(2)
+            # cot 1 tao cac ham voi cac nut nhap
             with col1:
                 save_button()
                 xeplaitkb_button()
+            # cot 2 tao ham tao ham show_teacher_menu(st.session_state.df)
+            # chay ham voi tham so st.session_state.df
             with col2:
-                show_teacher_menu(st.session_state.df_excel)
-        else:
-            st.info("📂 Chưa có file Tkb_dang_dung/tkb_dang_dung.xlsx nên cần Upload ở phía trái.")
-
+                show_teacher_menu(st.session_state.df)
